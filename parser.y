@@ -9,19 +9,20 @@
 %token <sval> CARATTERE
 %token <sval> CARATTEREQUERY
 %token <sval> IDENTIFICATORE
-%token <dval> DIGIT
-%token <sval> IDENTIFICATORE-HOST
+%token <ival> DIGIT
+%token <sval> IDENTIFICATORE_HOST
 %token <sval> SCHEME
-%token <sval> USERINFO
+%token <ival> USERINFO
+%token <sval> QUERY
 
 %type <sval> fragment
 %type <sval> query
 %type <sval> path
-%type <sval> port
-%type <sval> userinfo
+%type <ival> port
+%type <ival> userinfo
 %type <sval> scheme
 %type <sval> host
-%type <sval> indirizzo-IP
+%type <ival> indirizzo_IP
 %type <sval> authorithy
 %type <sval> uri1
 
@@ -42,13 +43,13 @@ userinfo: USERINFO
 		   { $$ = $1; }
 scheme: SCHEME
 		   { $$ = $1; }
-indirizzo-IP: DIGIT DIGIT DIGIT DIGIT
+indirizzo_IP: DIGIT DIGIT DIGIT DIGIT
 		   { $$ = $1 + "." + $2 + "." + $3 + "." + $4; }
-host: IDENTIFICATORE-HOST IDENTIFICATORE-HOST
+host: IDENTIFICATORE_HOST IDENTIFICATORE_HOST
 		   { $$ = $1 + "." + $2; }
-	  | host IDENTIFICATORE-HOST 
+	  | host IDENTIFICATORE_HOST 
 		   { $$ = $1 + "." + $2; }
-	  | indirizzo-IP     /*NEL DUBBIO DIVIDI*/
+	  | indirizzo_IP     /*NEL DUBBIO DIVIDI*/
 		   { $$ = $1; }
 authorithy: userinfo host port
 		   { $$ = "//" + $1 + "@" + $2 + ":" + $3; }
@@ -68,7 +69,7 @@ s: uri1
 
 
 
-
+%%
 
 private Yylex lexer;
 

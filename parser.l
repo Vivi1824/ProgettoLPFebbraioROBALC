@@ -51,12 +51,11 @@ BEGINPORT = ":"
                                      s = s.substring(0, s.length() - 1);
                                      yyparser.yylval = new ParserVal(s);
                                      yybegin(S_PORT);
-                                     return Parser.IDENTIFICATORE-HOST; }
+                                     return Parser.IDENTIFICATORE_HOST; }
 }
 <S_PORT> {
   [\s]+                            { }
-  [^:\{\n\r]+ {BEGINPATH}           { String s = yytext();
-                                     s = s.substring(0, s.length() - 1);
+  [^:\{\n\r]+ {BEGINPATH}           { int s = Integer.ParseInt(yytext());
                                      yyparser.yylval = new ParserVal(s);
                                      yybegin(S_PATH);
                                      return Parser.DIGIT; }
