@@ -1,3 +1,5 @@
+/* Gatti Daniel Marco e Giuliani Viviana*/
+
 %{
   import java.io.*;
 %}
@@ -12,17 +14,17 @@
 %token <ival> DIGIT
 %token <sval> IDENTIFICATORE_HOST
 %token <sval> SCHEME
-%token <ival> USERINFO
+%token <sval> USERINFO
 %token <sval> QUERY
 
 %type <sval> fragment
 %type <sval> query
 %type <sval> path
 %type <ival> port
-%type <ival> userinfo
+%type <sval> userinfo
 %type <sval> scheme
 %type <sval> host
-%type <ival> indirizzo_IP
+%type <sval> indirizzo_IP
 %type <sval> authorithy
 %type <sval> uri1
 
@@ -37,13 +39,13 @@ path: IDENTIFICATORE
 		   { $$ = $1 + "/"; }     /*INSERIRE LA PRIMA SBARRA NEL LEXER*/
 	  | path IDENTIFICATORE
 		   { $$ = $1 + "" + $2 + "/"; }
-port: DIGIT
+port: DIGIT     							/*INT*/
 		   { $$ = $1; }
-userinfo: USERINFO
+userinfo: USERINFO							
 		   { $$ = $1; }
 scheme: SCHEME
 		   { $$ = $1; }
-indirizzo_IP: DIGIT DIGIT DIGIT DIGIT
+indirizzo_IP: DIGIT DIGIT DIGIT DIGIT		/*INT*/
 		   { $$ = $1 + "." + $2 + "." + $3 + "." + $4; }
 host: IDENTIFICATORE_HOST IDENTIFICATORE_HOST
 		   { $$ = $1 + "." + $2; }

@@ -54,9 +54,8 @@ BEGINPORT = ":"
                                      return Parser.IDENTIFICATORE_HOST; }
 }
 <S_PORT> {
-  [\s]+                            { }
-  [^:\{\n\r]+ {BEGINPATH}           { int s = Integer.ParseInt(yytext());
-                                     yyparser.yylval = new ParserVal(s);
+  [\s]+                            { }       
+  [0-9]+ {BEGINPATH}                {yyparser.yylval = new ParserVal(Integer.parseInt(yytext()));
                                      yybegin(S_PATH);
                                      return Parser.DIGIT; }
 }
